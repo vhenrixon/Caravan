@@ -22,7 +22,7 @@ class Database {
     }
     
 
-    @Published var tripData = Set<Country>()
+    @Published var tripData = [ActiveCountries]()
     
     
     /**
@@ -46,13 +46,30 @@ class Database {
                 if (error != nil) {
                     print("An Error When Downloading")
                 } else {
-                    let json = try? JSONSerialization.jsonObject(with: docSnapshot.data()!, options: [])
-                    guard let dictionary = json as? [String: Any]
-                    decodeData(decodeData: dictionary)
+                    var actives: [Country] = []
+                    for country in docSnapshot!.documents {
+                        var tempCountry = Country(id: country.documentID);
+                        self.db.collection(<#T##collectionPath: String##String#>)
+                        for trip in country.data(){
+                            /*
+                            var tempTrip = Trip(date: trip.data()["date"], amountOfPeople: trip.data()["amountOfPeople"], id: trip.data()["id"])
+                            tempCountry.addTrip(trip: tempTrip);
+                             */
+                            print(trip.value);
+                        }
+                                    
+                            
+                    }
                 }
+                     
         }
 
     }
+    func decodeData(decodeDoc: [Any]) {
+        //decode jason response from FriendListResponse format in FriendFormat.swift
+            
+    }
+
 }
 struct Trip: Identifiable, Hashable{
     var date: String;
@@ -75,47 +92,10 @@ struct Trip: Identifiable, Hashable{
 
 
 
+
+
+
 struct Country: Identifiable, Hashable{
-
-    
-
-    func decodeData(decodeData: Dictionary<String: Any> ) {
-        //decode jason response from FriendListResponse format in FriendFormat.swift
-            do {
-                let decoder = JSONDecoder()
-                let countryData = try decoder.decode(ActiveCountries.self, from: decodeData!)
-                
-                DispatchQueue.main.async {
-                    self.countryList = countryData.countriesCollection
-                    print("Countries are: ", self.countryList)
-                }
-            } catch let error as NSError {
-                print("Error in JSON parsing")
-                print(error.debugDescription)
-            }
-    }
-}
-
-
-struct Trip: Identifiable, Codable {
-    var date: String;
-    var amountOfPeople: Int;
-    var id: String;
-
-    init(date:String, amountOfPeople:Int, id:String) {
-        self.date = date;
-        self.amountOfPeople = amountOfPeople;
-        self.id = id;
-    }
-
-    func getDate() -> String{
-        return self.date;
-    }
-}
-
-
-
-struct Country: Identifiable, Codable {
 
     var id: String;
     var tripCollection: [Trip];
@@ -124,10 +104,19 @@ struct Country: Identifiable, Codable {
         self.tripCollection = tripCollection;
         self.id = id;
     }
+    init(id:String) {
+        self.id = id;
+        self.tripCollection = [];
+    }
 
     func getTrip() -> [Trip] {
         return self.tripCollection;
     }
+    /*
+    func addTrip(trip:Trip) {
+        tripCollection.append(contentsOf: trip);
+    }
+     */
 
     static func == (lhs: Country, rhs: Country) -> Bool {
         return lhs.id == rhs.id;
@@ -143,6 +132,7 @@ struct ActiveCountries: Identifiable{
         self.countriesCollection = countriesCollection;
         self.id = id;
     }
+    
 
 }
 struct User: Identifiable{
