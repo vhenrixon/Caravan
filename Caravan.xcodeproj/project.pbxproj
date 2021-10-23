@@ -13,6 +13,9 @@
 		0469083F2723C11C00735B62 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0469083E2723C11C00735B62 /* Preview Assets.xcassets */; };
 		0469084A2723C11D00735B62 /* CaravanTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046908492723C11D00735B62 /* CaravanTests.swift */; };
 		046908552723C11D00735B62 /* CaravanUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046908542723C11D00735B62 /* CaravanUITests.swift */; };
+		57B6406C27243DD200854DD0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 57B6406B27243DD200854DD0 /* GoogleService-Info.plist */; };
+		57B6406E272441FC00854DD0 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B6406D272441FC00854DD0 /* Database.swift */; };
+		57B640722724441900854DD0 /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B640712724441900854DD0 /* Trip.swift */; };
 		7BEA2F3EBD791E9872BA2ACA /* Pods_Caravan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E522D95C25E57B0C117BF6 /* Pods_Caravan.framework */; };
 		A2AB08655D5FC15881A49E0D /* Pods_CaravanTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20A028FB7F65C543CDD14652 /* Pods_CaravanTests.framework */; };
 		DE1EDB768BA8D01ADB7D5EDB /* Pods_Caravan_CaravanUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE90BD37AFB99C619E5D9716 /* Pods_Caravan_CaravanUITests.framework */; };
@@ -52,6 +55,9 @@
 		27E522D95C25E57B0C117BF6 /* Pods_Caravan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Caravan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		29B5290D25AA200C2D85FBF2 /* Pods-CaravanTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CaravanTests.debug.xcconfig"; path = "Target Support Files/Pods-CaravanTests/Pods-CaravanTests.debug.xcconfig"; sourceTree = "<group>"; };
 		426820E5BBEE2BC1FC843584 /* Pods-Caravan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Caravan.release.xcconfig"; path = "Target Support Files/Pods-Caravan/Pods-Caravan.release.xcconfig"; sourceTree = "<group>"; };
+		57B6406B27243DD200854DD0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Desktop/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		57B6406D272441FC00854DD0 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		57B640712724441900854DD0 /* Trip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
 		70AC80CCB283A65C53FF5B42 /* Pods-Caravan-CaravanUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Caravan-CaravanUITests.debug.xcconfig"; path = "Target Support Files/Pods-Caravan-CaravanUITests/Pods-Caravan-CaravanUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		A5B2DA2F7DA5C891EA353E9F /* Pods-Caravan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Caravan.debug.xcconfig"; path = "Target Support Files/Pods-Caravan/Pods-Caravan.debug.xcconfig"; sourceTree = "<group>"; };
 		B44FB82D611F6D0BD6AF44B1 /* Pods-Caravan-CaravanUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Caravan-CaravanUITests.release.xcconfig"; path = "Target Support Files/Pods-Caravan-CaravanUITests/Pods-Caravan-CaravanUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -112,8 +118,11 @@
 		046908362723C11700735B62 /* Caravan */ = {
 			isa = PBXGroup;
 			children = (
+				57B6406B27243DD200854DD0 /* GoogleService-Info.plist */,
 				046908372723C11700735B62 /* CaravanApp.swift */,
 				046908392723C11700735B62 /* ContentView.swift */,
+				57B6406D272441FC00854DD0 /* Database.swift */,
+				57B640712724441900854DD0 /* Trip.swift */,
 				0469083B2723C11C00735B62 /* Assets.xcassets */,
 				046908402723C11C00735B62 /* Info.plist */,
 				0469083D2723C11C00735B62 /* Preview Content */,
@@ -280,6 +289,7 @@
 			files = (
 				0469083F2723C11C00735B62 /* Preview Assets.xcassets in Resources */,
 				0469083C2723C11C00735B62 /* Assets.xcassets in Resources */,
+				57B6406C27243DD200854DD0 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,6 +417,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57B640722724441900854DD0 /* Trip.swift in Sources */,
+				57B6406E272441FC00854DD0 /* Database.swift in Sources */,
 				0469083A2723C11700735B62 /* ContentView.swift in Sources */,
 				046908382723C11700735B62 /* CaravanApp.swift in Sources */,
 			);
