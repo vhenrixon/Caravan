@@ -8,17 +8,51 @@
 import Foundation
 import Firebase
 
+
+class Database {
+    
+    @Published var db: Firestore;
+
+    init() {
+        FirebaseApp.configure()
+        self.db = Firestore.firestore()
+    }
+    
+    @Published var tripData = Set<Country>()
+    var docRef: DocumentReference!
+    
+    func uploadDocument() {
+        docRef = db.document("Countries")
+        docRef.setData(data) { error in
+            if error != nil {
+                print("An Error Occured!")
+            } else {
+                print("Data Save Successfully")
+            }
+        }
+    }
+    
+    func downloadDocument() {
+        docRef = db.document("Countries/Trips")
+        docRef.getDocument { (docSnapshot, error) in
+            if (error != nil) {
+                print("An Error When Downloading")
+            }
+            let myData = docSnapshot.data()
+        }
+    }
+}
 struct Trip: Identifiable{
     var date: String;
     var amountOfPeople: Int;
     var id: String;
-    
+
     init(date:String, amountOfPeople:Int, id:String) {
         self.date = date;
         self.amountOfPeople = amountOfPeople;
         self.id = id;
     }
-    
+
     func getDate() -> String{
         return self.date;
     }
@@ -29,17 +63,17 @@ struct Trip: Identifiable{
 struct Country: Identifiable{
     var id: String;
     var tripCollection: [Trip];
-    
+
     init(tripCollection: [Trip], id: String) {
         self.tripCollection = tripCollection;
         self.id = id;
     }
-    
+
     func getTrip() -> [Trip] {
         return self.tripCollection;
     }
-    
-    
+
+
 }
 struct ActiveCountries: Identifiable{
     var id: String;
@@ -48,12 +82,12 @@ struct ActiveCountries: Identifiable{
         self.countriesCollection = countriesCollection;
         self.id = id;
     }
-    
+
 }
 struct User: Identifiable{
     var id: String;
     var name: String;
-    
+
     init(name: String, id: String) {
         self.name = name;
         self.id = id;
@@ -61,23 +95,6 @@ struct User: Identifiable{
     func getName() -> String {
         return self.name;
     }
-}
-
-class Database {
-    
-    @Published var db: Firestore;
-    public var countryTest: [Trip] = [Trip(date: "5/5/2021", amountOfPeople: 8, id: "sdsgsg"), Trip(date: "10/21/2021", amountOfPeople: 6, id: "62352362djjsdf")];
-    
-    init() {
-        FirebaseApp.configure()
-        //  https://betterprogramming.pub/how-to-use-firebase-in-swiftuis-new-application-lifecycle-c77a8a306d63
-        self.db = Firestore.firestore()
-    }
-    
-    
-    
-    
-    
-}
+ }
 
 
