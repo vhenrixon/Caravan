@@ -12,7 +12,7 @@ import Firebase
 
 @main
 struct CaravanApp: App {
-
+    
     var body: some Scene {
        WindowGroup {
            ContentView()

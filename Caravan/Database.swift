@@ -39,7 +39,7 @@ class Database {
     }
      */
 
-    
+    /*
     func downloadDocument() {
         self.db.collection("Countries").getDocuments() {
             (docSnapshot, error) in
@@ -49,29 +49,66 @@ class Database {
                     var actives: [Country] = []
                     for country in docSnapshot!.documents {
                         var tempCountry = Country(id: country.documentID);
-                        self.db.collection(<#T##collectionPath: String##String#>)
-                        for trip in country.data(){
-                            /*
-                            var tempTrip = Trip(date: trip.data()["date"], amountOfPeople: trip.data()["amountOfPeople"], id: trip.data()["id"])
-                            tempCountry.addTrip(trip: tempTrip);
-                             */
-                            print(trip.value);
+                        self.db.collection("Countries").document(country.documentID).getDocument {
+                            (docCountrySnapshot, error) in
+                            if(error != nil) {
+                                print("An error when Downloading");
+                            } else {
+                                print(docCountrySnapshot!.data()["Date"])
+                                /*
+                                for trip in docCountrySnapshot!.data(){
+                                    /*
+                                    var tempTrip = Trip(date: trip.data()["date"], amountOfPeople: trip.data()["amountOfPeople"], id: trip.data()["id"])
+                                    tempCountry.addTrip(trip: tempTrip);
+                                     */
+                                    print(trip.documentID);
+                                }*/
+                                 
+                            }
+                            
                         }
+                        
                                     
                             
                     }
                 }
+            
                      
         }
+     
 
-    }
-    func decodeData(decodeDoc: [Any]) {
-        //decode jason response from FriendListResponse format in FriendFormat.swift
-            
+    } */
+    func getCountries() -> [Country]{
+        var countries: [Country] = [];
+        self.db.collection("Countries").getDocuments {
+            (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    for document in querySnapshot!.documents {
+                        print("\(document.documentID) => \(document.data())")
+                        countries.append(Country(id: document.documentID))
+                        self.db.collection("Countries").document(document.documentID).collection("Trips").getDocuments{
+                            (tripDoc, err) in
+                            if let err = err {
+                                print("Error getting documents: \(err)")
+                            } else {
+                                for doc in tripDoc!.documents{
+                                    print("\(doc.documentID) => \(doc.data())")
+                                }
+                            }
+                        }
+
+                    }
+                }
+
+        }
+        print(countries);
+        return countries;
     }
 
 }
-struct Trip: Identifiable, Hashable{
+class Trip: Identifiable{
     var date: String;
     var amountOfPeople: Int;
     var id: String;
@@ -95,7 +132,7 @@ struct Trip: Identifiable, Hashable{
 
 
 
-struct Country: Identifiable, Hashable{
+class Country: Identifiable{
 
     var id: String;
     var tripCollection: [Trip];
@@ -112,6 +149,7 @@ struct Country: Identifiable, Hashable{
     func getTrip() -> [Trip] {
         return self.tripCollection;
     }
+    
     /*
     func addTrip(trip:Trip) {
         tripCollection.append(contentsOf: trip);
@@ -124,7 +162,7 @@ struct Country: Identifiable, Hashable{
 
 
 }
-struct ActiveCountries: Identifiable{
+class ActiveCountries: Identifiable{
     var id: String;
     var countriesCollection: [Country];
   
@@ -135,7 +173,7 @@ struct ActiveCountries: Identifiable{
     
 
 }
-struct User: Identifiable{
+class User: Identifiable{
     var id: String;
     var name: String;
 
