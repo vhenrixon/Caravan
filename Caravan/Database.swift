@@ -37,7 +37,9 @@ class Database: ObservableObject{
                     for document in querySnapshot!.documents {
                      
                         //China => [:]
-                        self.data.addCountry(country: Country(id: document.documentID));
+                        let isInternational = document.data()["IsInternational"] as? Bool;
+                        let image = document.data()["image"] as? String;
+                        self.data.addCountry(country: Country(id: document.documentID, isInternational: isInternational ?? false, image: image ?? "China_Image"));
                         self.db.collection("Countries").document(document.documentID).collection("Trips").getDocuments{
                             (tripDoc, err) in
                             if let err = err {
@@ -113,26 +115,35 @@ class Country: Identifiable{
 
     @Published var id: String;
     var tripCollection: [Trip];
-
-    init(tripCollection: [Trip], id: String) {
+    var isInternational: Bool;
+    @Published var image: String;
+    init(tripCollection: [Trip], id: String, isInternational: Bool, image: String) {
         self.tripCollection = tripCollection;
         self.id = id;
+        self.isInternational = isInternational
+        self.image = image
     }
-    init(id:String) {
+    init(id:String, isInternational: Bool, image: String) {
         self.id = id;
         self.tripCollection = [];
+        self.isInternational = isInternational;
+        self.image = image;
     }
 
     func getTrip() -> [Trip] {
         return self.tripCollection;
     }
-    
-    
+    func getImage() -> String {
+        return self.image; 
+    }
     func addTrip(trip:Trip) {
         tripCollection.append(trip);
     }
     func getName() -> String{
         return self.id
+    }
+    func getInternational() -> Bool {
+        return isInternational;
     }
 
     static func == (lhs: Country, rhs: Country) -> Bool {

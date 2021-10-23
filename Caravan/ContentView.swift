@@ -12,8 +12,11 @@ import Firebase
 
 struct ContentView: View {
 
-  /*
+  
     @State var text = ""
+    //@ObservedObject var db: Database = Database();
+    
+    //@State var countries = [];
     var body: some View {
             
         TabView {
@@ -22,15 +25,17 @@ struct ContentView: View {
         MessageView().tabItem{Label("Messages", systemImage: "message.fill")}
         }.accentColor(.black)
         
-            }
-        }
-    */
-
-
-
-    @ObservedObject var db: Database = Database();
     
-    @State var countries = [];
+    
+
+    }
+    
+
+
+    
+}
+
+    /*
     var body: some View {
         
         HStack {
@@ -46,18 +51,11 @@ struct ContentView: View {
                 }
             }
         })
+        */
 
-    }
-
-
-    
-}
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
-    }
-      static var previews: some View {
         Group {
             ContentView()
                 .previewDevice("iPhone 13")
