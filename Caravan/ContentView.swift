@@ -8,7 +8,26 @@
 import SwiftUI
 import Firebase
 
+
+
 struct ContentView: View {
+
+  /*
+    @State var text = ""
+    var body: some View {
+            
+        TabView {
+            HomeView(text: text).tabItem{Label("Explore",systemImage:"globe.americas.fill")}
+            ProfileView().tabItem{Label("Profile", systemImage: "person")}
+        MessageView().tabItem{Label("Messages", systemImage: "message.fill")}
+        }.accentColor(.black)
+        
+            }
+        }
+    */
+
+
+
     @ObservedObject var db: Database = Database();
     
     @State var countries = [];
@@ -30,12 +49,20 @@ struct ContentView: View {
 
     }
 
+
     
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            
+    }
+      static var previews: some View {
+        Group {
+            ContentView()
+                .previewDevice("iPhone 13")
+        }
     }
 }
+
+
