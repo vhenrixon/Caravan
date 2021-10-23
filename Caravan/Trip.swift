@@ -9,11 +9,7 @@ import Foundation
 
 
 class Trip{
-    private date: String = "";
-    private amount: Int = "";
-    private id: String = "";
-    
-    init(date: String, amountOfPeople: Int, id: String) {
-        
-    }
+    public var date: String = "";
+    public var amountOfPeople: Int = 0;
+    public var id: String = "";    
 }
