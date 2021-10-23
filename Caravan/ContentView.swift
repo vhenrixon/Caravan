@@ -7,18 +7,28 @@
 
 import SwiftUI
 
+
+
 struct ContentView: View {
-    
+    @State var text = ""
     var body: some View {
-        Text("Hello, Bruce!")
-            .padding()
-        Text("Hello, Srikar!").padding()
-    }
-}
+            
+        TabView {
+            HomeView(text: text).tabItem{Label("Explore",systemImage:"globe.americas.fill")}
+            ProfileView().tabItem{Label("Profile", systemImage: "person")}
+        MessageView().tabItem{Label("Messages", systemImage: "message.fill")}
+        }.accentColor(.black)
+        
+            }
+        }
+    
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        Group {
+            ContentView()
+                .previewDevice("iPhone 13")
+        }
     }
 }
 
