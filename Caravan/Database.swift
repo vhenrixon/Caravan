@@ -19,9 +19,10 @@ class Database {
     }
     
     @Published var tripData = Set<Country>()
-    var docRef: DocumentReference!
     
-    func uploadDocument() {
+    
+    /**
+     func uploadDocument() {
         docRef = db.document("Countries")
         docRef.setData(data) { error in
             if error != nil {
@@ -31,18 +32,25 @@ class Database {
             }
         }
     }
+     */
+
     
     func downloadDocument() {
-        docRef = db.document("Countries/Trips")
-        docRef.getDocument { (docSnapshot, error) in
-            if (error != nil) {
-                print("An Error When Downloading")
-            }
-            let myData = docSnapshot.data()
+        self.db.collection("Countries").getDocuments() {
+            (docSnapshot, error) in
+                if (error != nil) {
+                    print("An Error When Downloading")
+                } else {
+                    for document in docSnapshot!.documents {
+                        // Bruce function go here!
+                    }
+
+                }
         }
+
     }
 }
-struct Trip: Identifiable{
+struct Trip: Identifiable, Hashable{
     var date: String;
     var amountOfPeople: Int;
     var id: String;
@@ -56,11 +64,16 @@ struct Trip: Identifiable{
     func getDate() -> String{
         return self.date;
     }
+    static func == (lhs: Trip, rhs: Trip) -> Bool {
+        return lhs.id == rhs.id;
+    }
 }
 
 
 
-struct Country: Identifiable{
+struct Country: Identifiable, Hashable{
+
+    
     var id: String;
     var tripCollection: [Trip];
 
@@ -72,7 +85,9 @@ struct Country: Identifiable{
     func getTrip() -> [Trip] {
         return self.tripCollection;
     }
-
+    static func == (lhs: Country, rhs: Country) -> Bool {
+        return lhs.id == rhs.id;
+    }
 
 }
 struct ActiveCountries: Identifiable{

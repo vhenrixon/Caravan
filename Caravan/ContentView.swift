@@ -12,14 +12,13 @@ struct ContentView: View {
     
     init() {
         self.db = Database();
+        self.db.downloadDocument();
     }
     var body: some View {
         Text("Hello, Bruce!")
             .padding()
-        ForEach(self.db.countryTest) { i in
-            Text(i.getDate());
-        }
     }
+    
 }
 
 struct ContentView_Previews: PreviewProvider {
