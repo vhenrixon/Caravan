@@ -15,15 +15,20 @@ class Database {
     @Published var countryList = [ActiveCountries]()
     var docRef: DocumentReference!
 
-    
     init() {
         FirebaseApp.configure()
         self.db = Firestore.firestore()
     }
     
-    func uploadDocument() {
-        docRef = db.document("Countries")
-        docRef.setData(data) { error in
+    @Published var tripData = [ActiveCountries]()
+    
+    //dataType: for the newly added data, decide whether it is a new country, tripID, or attributes
+    
+    func addNewData(country: String, tripID: String, data: Any) {
+        
+        //can set subcollections even if document does not exist
+        var ref: DocumentReference!
+        self.db.collection("Countries").document(country).collection("Trips").document(tripID).setData(data as! [String : Any]) { error in
             if error != nil {
                 print("An Error Occured!")
             } else {
@@ -31,41 +36,13 @@ class Database {
             }
         }
     }
-    
+
     func downloadDocument() {
-        docRef = db.document("Countries/Trips")
-        docRef.getDocument { (docSnapshot, error) in
-            if (error != nil) {
-                print("An Error When Downloading")
-            }
-            let json = try? JSONSerialization.jsonObject(with: docSnapshot.data()!, options: [])
-            guard let dictionary = json as? [String: Any]
-            else {
-                print("Retrieve data error.")
-                return
-            }
-            decodeData(decodeData: dictionary)
-        }
-    }
-    
-    func decodeData(decodeData: Dictionary<String: Any> ) {
-        //decode jason response from FriendListResponse format in FriendFormat.swift
-            do {
-                let decoder = JSONDecoder()
-                let countryData = try decoder.decode(ActiveCountries.self, from: decodeData!)
-                
-                DispatchQueue.main.async {
-                    self.countryList = countryData.countriesCollection
-                    print("Countries are: ", self.countryList)
-                }
-            } catch let error as NSError {
-                print("Error in JSON parsing")
-                print(error.debugDescription)
-            }
+        
     }
 }
 
-struct Trip: Identifiable, Codable {
+struct Trip: Identifiable, Hashable{
     var date: String;
     var amountOfPeople: Int;
     var id: String;
@@ -79,11 +56,18 @@ struct Trip: Identifiable, Codable {
     func getDate() -> String{
         return self.date;
     }
+    static func == (lhs: Trip, rhs: Trip) -> Bool {
+        return lhs.id == rhs.id;
+    }
 }
 
 
 
-struct Country: Identifiable, Codable {
+
+
+
+struct Country: Identifiable, Hashable{
+
     var id: String;
     var tripCollection: [Trip];
 
@@ -91,20 +75,35 @@ struct Country: Identifiable, Codable {
         self.tripCollection = tripCollection;
         self.id = id;
     }
+    init(id:String) {
+        self.id = id;
+        self.tripCollection = [];
+    }
 
     func getTrip() -> [Trip] {
         return self.tripCollection;
+    }
+    /*
+    func addTrip(trip:Trip) {
+        tripCollection.append(contentsOf: trip);
+    }
+     */
+
+    static func == (lhs: Country, rhs: Country) -> Bool {
+        return lhs.id == rhs.id;
     }
 
 
 }
 struct ActiveCountries: Identifiable{
     var id: String;
-    var countriesCollection: <Country>;
-    init(countriesCollection: <Country>, id: String) {
+    var countriesCollection: [Country];
+  
+    init(countriesCollection: [Country], id: String) {
         self.countriesCollection = countriesCollection;
         self.id = id;
     }
+    
 
 }
 struct User: Identifiable{
@@ -119,5 +118,3 @@ struct User: Identifiable{
         return self.name;
     }
  }
-
-
