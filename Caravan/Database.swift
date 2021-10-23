@@ -9,102 +9,69 @@ import Foundation
 import Firebase
 
 
-class Database {
+class Database: ObservableObject{
     
     @Published var db: Firestore;
-    @Published var countryList = [ActiveCountries]()
+    @Published var data: ActiveCountries;
+    @Published var dataRecieved = false;
     var docRef: DocumentReference!
 
     
     init() {
         FirebaseApp.configure()
         self.db = Firestore.firestore()
-    }
-    
-
-    @Published var tripData = [ActiveCountries]()
-    
-    
-    /**
-     func uploadDocument() {
-
-        docRef = db.document("Countries")
-        docRef.setData(data) { error in
-            if error != nil {
-                print("An Error Occured!")
-            } else {
-                print("Data Save Successfully")
-            }
+        self.data = ActiveCountries(countriesCollection: [], id: "");
+        self.getData() { (data) in
+            self.data = data;
+            self.dataRecieved = true;
         }
     }
-     */
 
-    /*
-    func downloadDocument() {
-        self.db.collection("Countries").getDocuments() {
-            (docSnapshot, error) in
-                if (error != nil) {
-                    print("An Error When Downloading")
-                } else {
-                    var actives: [Country] = []
-                    for country in docSnapshot!.documents {
-                        var tempCountry = Country(id: country.documentID);
-                        self.db.collection("Countries").document(country.documentID).getDocument {
-                            (docCountrySnapshot, error) in
-                            if(error != nil) {
-                                print("An error when Downloading");
-                            } else {
-                                print(docCountrySnapshot!.data()["Date"])
-                                /*
-                                for trip in docCountrySnapshot!.data(){
-                                    /*
-                                    var tempTrip = Trip(date: trip.data()["date"], amountOfPeople: trip.data()["amountOfPeople"], id: trip.data()["id"])
-                                    tempCountry.addTrip(trip: tempTrip);
-                                     */
-                                    print(trip.documentID);
-                                }*/
-                                 
-                            }
-                            
-                        }
-                        
-                                    
-                            
-                    }
-                }
-            
-                     
-        }
-     
-
-    } */
-    func getCountries() -> [Country]{
-        var countries: [Country] = [];
+    func getData(completion: @escaping(ActiveCountries) -> ()) {
         self.db.collection("Countries").getDocuments {
             (querySnapshot, err) in
                 if let err = err {
                     print("Error getting documents: \(err)")
                 } else {
+                    var _i = 0;
                     for document in querySnapshot!.documents {
-                        print("\(document.documentID) => \(document.data())")
-                        countries.append(Country(id: document.documentID))
+                     
+                        //China => [:]
+                        self.data.addCountry(country: Country(id: document.documentID));
                         self.db.collection("Countries").document(document.documentID).collection("Trips").getDocuments{
                             (tripDoc, err) in
                             if let err = err {
                                 print("Error getting documents: \(err)")
                             } else {
                                 for doc in tripDoc!.documents{
-                                    print("\(doc.documentID) => \(doc.data())")
+                                    //Trip1 => ["Date": 10/10/2021]
+                                    let date = doc.data()["Date"] as? String;
+                                    let amountOfPeople = doc.data()["amountOfPeople"] as? Int
+                                    let name = doc.data()["name"] as? String;
+                                    let organizer = doc.data()["name"] as? String;
+                                    let descripition = doc.data()["descripition"] as? String;
+                                    let people = doc.data()["people"] as? [String];
+                                    let estimatedCost = doc.data()["estimatedCost"] as? Float;
+                                    self.data.getCountry()[_i].addTrip(
+                                        trip: Trip(date: date ?? "00/00/00",
+                                                   amountOfPeople: amountOfPeople ?? 0,
+                                                   id: doc.documentID,
+                                                   name: name ?? "",
+                                                   organizer: organizer ?? "",
+                                                   descripition: descripition ?? "" ,
+                                                   people: people ?? [""],
+                                                   estimatedCost: estimatedCost ?? 0.0));
+                             
                                 }
                             }
                         }
 
                     }
+                    _i += 1;
                 }
-
+            completion(self.data);
         }
-        print(countries);
-        return countries;
+
     }
 
 }
@@ -112,11 +79,21 @@ class Trip: Identifiable{
     var date: String;
     var amountOfPeople: Int;
     var id: String;
+    var name: String;
+    var organizer: String;
+    var descripition: String;
+    var people: [String];
+    var estimatedCost: Float;
 
-    init(date:String, amountOfPeople:Int, id:String) {
+    init(date:String, amountOfPeople:Int, id:String, name:String, organizer: String, descripition: String, people:[String], estimatedCost: Float) {
         self.date = date;
         self.amountOfPeople = amountOfPeople;
         self.id = id;
+        self.name = name;
+        self.organizer = organizer;
+        self.descripition = descripition;
+        self.people = people;
+        self.estimatedCost = estimatedCost;
     }
 
     func getDate() -> String{
@@ -134,7 +111,7 @@ class Trip: Identifiable{
 
 class Country: Identifiable{
 
-    var id: String;
+    @Published var id: String;
     var tripCollection: [Trip];
 
     init(tripCollection: [Trip], id: String) {
@@ -150,11 +127,13 @@ class Country: Identifiable{
         return self.tripCollection;
     }
     
-    /*
+    
     func addTrip(trip:Trip) {
-        tripCollection.append(contentsOf: trip);
+        tripCollection.append(trip);
     }
-     */
+    func getName() -> String{
+        return self.id
+    }
 
     static func == (lhs: Country, rhs: Country) -> Bool {
         return lhs.id == rhs.id;
@@ -169,6 +148,12 @@ class ActiveCountries: Identifiable{
     init(countriesCollection: [Country], id: String) {
         self.countriesCollection = countriesCollection;
         self.id = id;
+    }
+    public func addCountry(country: Country) {
+        self.countriesCollection.append(country);
+    }
+    public func getCountry() -> [Country] {
+        return self.countriesCollection;
     }
     
 

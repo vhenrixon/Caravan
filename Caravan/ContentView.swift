@@ -7,19 +7,29 @@
 
 import SwiftUI
 import Firebase
+
 struct ContentView: View {
-    public var db: Database;
+    @ObservedObject var db: Database = Database();
     
-    init() {
-        self.db = Database();
-        self.db.getCountries();
-    }
+    @State var countries = [];
     var body: some View {
-        Text("Hello, Bruce!")
-            .padding()
         
+        HStack {
+            ForEach(0 ..< self.countries.count, id: \.self) {i in
+                
+                Text(countries[i] as! String)
+            }
+        }.onReceive(db.$data,perform: {data in
+            if(data.getCountry().count > 0) {
+                print(data.getCountry())
+                for var i in 0..<data.getCountry().count {
+                    countries.append((data.getCountry())[i].getName());
+                }
+            }
+        })
+
     }
-    
+
     
 }
 
