@@ -22,7 +22,7 @@ var international_travels = [
 
 var usa_travels = [
     Travel(destination: "Hawaii", image: "Hawaii_Image"),
-    Travel(destination: "Las Vegas", image: "Vegas_Image"),
+    Travel(destination: "Las Vegas", image: "Casino_Image"),
     Travel(destination: "Rocky Mountains", image: "RockyMountains_Image"),
     Travel(destination: "Washington D.C", image: "dc_Image2")
 ]
