@@ -24,7 +24,7 @@ class Database {
     
     
     func getRef() -> DocumentReference {
-        return Firestore.firestore().collection("Countries").document("China").collection("Trips").document("Trip1")
+        return Firestore.firestore().collection("Users").document("Martha")
     }
     //dataType: for the newly added data, decide whether it is a new country, tripID, or attributes
     
@@ -61,7 +61,7 @@ class Database {
                 }
         default:
             //can set subcollections even if document does not exist
-            ref.setData(data) { error in
+            ref.setData(data, merge: true) { error in
                 if error != nil {
                     print("An Error Occured!")
                 } else {
