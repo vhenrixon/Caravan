@@ -8,10 +8,17 @@
 import SwiftUI
 
 struct ContentView: View {
+    public var db: Database;
+    
+    init() {
+        self.db = Database();
+        self.db.downloadDocument();
+    }
     var body: some View {
         Text("Hello, Bruce!")
             .padding()
     }
+    
 }
 
 struct ContentView_Previews: PreviewProvider {

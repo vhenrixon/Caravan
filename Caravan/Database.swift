@@ -21,7 +21,13 @@ class Database {
         self.db = Firestore.firestore()
     }
     
-    func uploadDocument() {
+
+    @Published var tripData = Set<Country>()
+    
+    
+    /**
+     func uploadDocument() {
+
         docRef = db.document("Countries")
         docRef.setData(data) { error in
             if error != nil {
@@ -31,23 +37,48 @@ class Database {
             }
         }
     }
+     */
+
     
     func downloadDocument() {
-        docRef = db.document("Countries/Trips")
-        docRef.getDocument { (docSnapshot, error) in
-            if (error != nil) {
-                print("An Error When Downloading")
-            }
-            let json = try? JSONSerialization.jsonObject(with: docSnapshot.data()!, options: [])
-            guard let dictionary = json as? [String: Any]
-            else {
-                print("Retrieve data error.")
-                return
-            }
-            decodeData(decodeData: dictionary)
+        self.db.collection("Countries").getDocuments() {
+            (docSnapshot, error) in
+                if (error != nil) {
+                    print("An Error When Downloading")
+                } else {
+                    let json = try? JSONSerialization.jsonObject(with: docSnapshot.data()!, options: [])
+                    guard let dictionary = json as? [String: Any]
+                    decodeData(decodeData: dictionary)
+                }
         }
+
     }
+}
+struct Trip: Identifiable, Hashable{
+    var date: String;
+    var amountOfPeople: Int;
+    var id: String;
+
+    init(date:String, amountOfPeople:Int, id:String) {
+        self.date = date;
+        self.amountOfPeople = amountOfPeople;
+        self.id = id;
+    }
+
+    func getDate() -> String{
+        return self.date;
+    }
+    static func == (lhs: Trip, rhs: Trip) -> Bool {
+        return lhs.id == rhs.id;
+    }
+}
+
+
+
+struct Country: Identifiable, Hashable{
+
     
+
     func decodeData(decodeData: Dictionary<String: Any> ) {
         //decode jason response from FriendListResponse format in FriendFormat.swift
             do {
@@ -64,6 +95,7 @@ class Database {
             }
     }
 }
+
 
 struct Trip: Identifiable, Codable {
     var date: String;
@@ -84,6 +116,7 @@ struct Trip: Identifiable, Codable {
 
 
 struct Country: Identifiable, Codable {
+
     var id: String;
     var tripCollection: [Trip];
 
@@ -96,12 +129,17 @@ struct Country: Identifiable, Codable {
         return self.tripCollection;
     }
 
+    static func == (lhs: Country, rhs: Country) -> Bool {
+        return lhs.id == rhs.id;
+    }
+
 
 }
 struct ActiveCountries: Identifiable{
     var id: String;
-    var countriesCollection: <Country>;
-    init(countriesCollection: <Country>, id: String) {
+    var countriesCollection: [Country];
+  
+    init(countriesCollection: [Country], id: String) {
         self.countriesCollection = countriesCollection;
         self.id = id;
     }
