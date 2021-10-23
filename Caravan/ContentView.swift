@@ -12,7 +12,9 @@ struct ContentView: View {
     
     init() {
         self.db = Database();
-        self.db.addNewData(country: "Land of Lights", tripID: "A Good Trip", data: ["ultraman": "Seven"])
+        var aref = self.db.getRef()
+        self.db.editData(operation: "update", ref: aref, data: ["estimatedcost": 50.0])
+        
         self.db.downloadDocument();
     }
     var body: some View {

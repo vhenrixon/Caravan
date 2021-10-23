@@ -22,10 +22,56 @@ class Database {
     
     @Published var tripData = [ActiveCountries]()
     
+    
+    func getRef() -> DocumentReference {
+        return Firestore.firestore().collection("Countries").document("China").collection("Trips").document("Trip1")
+    }
     //dataType: for the newly added data, decide whether it is a new country, tripID, or attributes
     
-    func addNewData(country: String, tripID: String, data: Any) {
+    func editData(operation: String, ref: DocumentReference, data: [String: Any]) {
         
+        switch operation {
+        case "update":
+            ref.updateData(data) { error in
+                if error != nil {
+                    print("An Error Occured!")
+                } else {
+                    print("Data Save Successfully")
+                }
+            }
+        case "addElement":
+            for instance in data {
+                ref.updateData([instance.key: FieldValue.arrayUnion([instance.value])]) { error in
+                    if error != nil {
+                        print("An Error Occured!")
+                    } else {
+                        print("Data Save Successfully")
+                    }
+                }
+            }
+        case "removeElement":
+                for instance in data {
+                    ref.updateData([instance.key: FieldValue.arrayRemove([instance.value])]) { error in
+                        if error != nil {
+                            print("An Error Occured!")
+                        } else {
+                            print("Data Save Successfully")
+                        }
+                    }
+                }
+        default:
+            //can set subcollections even if document does not exist
+            ref.setData(data) { error in
+                if error != nil {
+                    print("An Error Occured!")
+                } else {
+                    print("Data Save Successfully")
+                }
+            }
+        }
+    }
+    
+    func changeArray(deleteElement: Bool, country: String, tripID: String, data: Any) {
         //can set subcollections even if document does not exist
         var ref: DocumentReference!
         self.db.collection("Countries").document(country).collection("Trips").document(tripID).setData(data as! [String : Any]) { error in
