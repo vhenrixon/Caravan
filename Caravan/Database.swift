@@ -7,6 +7,7 @@
 
 import Foundation
 import Firebase
+import UIKit
 
 
 class Database: ObservableObject{
@@ -14,12 +15,14 @@ class Database: ObservableObject{
     @Published var db: Firestore;
     @Published var data: ActiveCountries;
     @Published var dataRecieved = false;
+    static var userTrips = "";
+    
     var docRef: DocumentReference!
 
     init() {
 
      
-      if(FirebaseApp.app() == nil){
+        if(FirebaseApp.app() == nil){
               FirebaseApp.configure()
           }
           self.db = Firestore.firestore()
@@ -28,10 +31,18 @@ class Database: ObservableObject{
               self.data = data;
               self.dataRecieved = true;
           }
+        /*self.getUserTrips() { (data) in
+            self.userTrips = data;
+            
+        }*/
+        
+     
+
+        
     }
     
     func getRef() -> DocumentReference {
-        return Firestore.firestore().collection("Users").document("Martha")
+        return Firestore.firestore().collection("Users").document("John Doe")
     }
     //dataType: for the newly added data, decide whether it is a new country, tripID, or attributes
     
@@ -90,6 +101,9 @@ class Database: ObservableObject{
         }
     }
 
+    
+    
+   
     
 
     func getData(completion: @escaping(ActiveCountries) -> ()) {
@@ -236,6 +250,8 @@ class Country: Identifiable{
     init(id:String) {
         self.id = id;
         self.tripCollection = [];
+        self.isInternational = false;
+        self.image = "China_image"
     }
 
     func getTrip() -> [Trip] {
@@ -285,12 +301,31 @@ class ActiveCountries: Identifiable{
 class User: Identifiable{
     var id: String;
     var name: String;
-
-    init(name: String, id: String) {
+    var Trips: [Trip];
+    var age: Int;
+    
+    
+    init(name: String, id: String, Trips: [Trip], age: Int) {
         self.name = name;
         self.id = id;
+        self.age = age;
+        self.Trips = Trips;
     }
     func getName() -> String {
         return self.name;
     }
+    func getAllTrips() -> [Trip] {
+        return self.Trips;
+    }
+    func getTrip(index: Int) -> Trip {
+        return self.Trips[index];
+    }
+    func getAge() -> Int {
+        return self.age;
+    }
  }
+
+
+struct UserTrips: Encodable {
+    var Trips: [String]
+}
