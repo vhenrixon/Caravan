@@ -20,7 +20,7 @@ struct ContentView: View {
             HomeView(text: text).tabItem{Label("Explore",systemImage:"globe.americas.fill")}
             ProfileView().tabItem{Label("Profile", systemImage: "person")}
         MessageView().tabItem{Label("Messages", systemImage: "message.fill")}
-        }.accentColor(.black)
+        }.accentColor(.yellow)
         
     
     
