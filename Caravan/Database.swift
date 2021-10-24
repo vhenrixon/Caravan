@@ -9,19 +9,26 @@ import Foundation
 import Firebase
 
 
-class Database {
+class Database: ObservableObject{
     
     @Published var db: Firestore;
-    @Published var countryList = [ActiveCountries]()
+    @Published var data: ActiveCountries;
+    @Published var dataRecieved = false;
     var docRef: DocumentReference!
 
     init() {
-        FirebaseApp.configure()
-        self.db = Firestore.firestore()
+
+     
+      if(FirebaseApp.app() == nil){
+              FirebaseApp.configure()
+          }
+          self.db = Firestore.firestore()
+          self.data = ActiveCountries(countriesCollection: [], id: "");
+          self.getData() { (data) in
+              self.data = data;
+              self.dataRecieved = true;
+          }
     }
-    
-    @Published var tripData = [ActiveCountries]()
-    
     
     func getRef() -> DocumentReference {
         return Firestore.firestore().collection("Users").document("Martha")
@@ -83,25 +90,122 @@ class Database {
         }
     }
 
-    func downloadDocument() {
-        
-    }
-}
+    
 
-struct Trip: Identifiable, Hashable{
+    func getData(completion: @escaping(ActiveCountries) -> ()) {
+        self.db.collection("Countries").getDocuments {
+            (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    var _i = 0;
+                    for document in querySnapshot!.documents {
+                     
+                        //China => [:]
+                        let isInternational = document.data()["IsInternational"] as? Bool;
+                        let image = document.data()["image"] as? String;
+                        self.data.addCountry(country: Country(id: document.documentID, isInternational: isInternational ?? false, image: image ?? "China_Image"));
+                        self.db.collection("Countries").document(document.documentID).collection("Trips").getDocuments{
+                            (tripDoc, err) in
+                            if let err = err {
+                                print("Error getting documents: \(err)")
+                            } else {
+                                for doc in tripDoc!.documents{
+                                    //Trip1 => ["Date": 10/10/2021]
+                                    let date = doc.data()["Date"] as? String;
+                                    let amountOfPeople = doc.data()["amountOfPeople"] as? Int
+                                    let name = doc.data()["name"] as? String;
+                                    let organizer = doc.data()["name"] as? String;
+                                    let descripition = doc.data()["descripition"] as? String;
+                                    let people = doc.data()["people"] as? [String];
+                                    let estimatedCost = doc.data()["estimatedCost"] as? Float;
+                                    let image = doc.data()["image"] as? String;
+                                    let countryName = doc.data()["country"] as? String;
+                                    self.data.getCountry()[_i].addTrip(
+                                        trip: Trip(date: date ?? "00/00/00",
+                                                   amountOfPeople: amountOfPeople ?? 0,
+                                                   id: doc.documentID,
+                                                   name: name ?? "",
+                                                   organizer: organizer ?? "",
+                                                   descripition: descripition ?? "" ,
+                                                   people: people ?? [""],
+                                                   estimatedCost: estimatedCost ?? 0.0,
+                                                    image: image ?? "",
+                                                    country: countryName ?? "")
+                                        )
+                             
+                                }
+                            }
+                        }
+
+                    }
+                    _i += 1;
+                }
+            completion(self.data);
+        }
+
+    }
+
+
+}
+class Trip: Identifiable{
+
     var date: String;
     var amountOfPeople: Int;
     var id: String;
-
-    init(date:String, amountOfPeople:Int, id:String) {
+    var name: String;
+    var organizer: String;
+    var descripition: String;
+    var people: [String];
+    var estimatedCost: Float;
+    var image: String;
+    var country: String
+    init(date:String, amountOfPeople:Int, id:String, name:String, organizer: String, descripition: String, people:[String], estimatedCost: Float, image: String, country: String) {
         self.date = date;
         self.amountOfPeople = amountOfPeople;
         self.id = id;
+        self.name = name;
+        self.organizer = organizer;
+        self.descripition = descripition;
+        self.people = people;
+        self.estimatedCost = estimatedCost;
+        self.image = image;
+        self.country = country;
     }
 
     func getDate() -> String{
         return self.date;
     }
+
+    func getAmountOfPeople() -> Int{
+        return self.amountOfPeople;
+    }
+    func getId() -> String{
+        return self.id;
+    }
+    func getOrganizer() -> String{
+        return self.organizer;
+    }
+    func getDescripition() -> String{
+        return self.descripition;
+    }
+    func getPeople() -> [String]{
+        return self.people;
+    }
+    func getEstimatedCost() -> Float{
+        return self.estimatedCost;
+    }
+    func getName() -> String {
+        return self.name;
+    }
+    func getImage() -> String {
+        return self.image;
+    }
+    func getCountryName() -> String {
+        return self.country;
+    }
+    
+
     static func == (lhs: Trip, rhs: Trip) -> Bool {
         return lhs.id == rhs.id;
     }
@@ -110,16 +214,23 @@ struct Trip: Identifiable, Hashable{
 
 
 
+class Country: Identifiable{
 
-
-struct Country: Identifiable, Hashable{
-
-    var id: String;
+    @Published var id: String;
     var tripCollection: [Trip];
-
-    init(tripCollection: [Trip], id: String) {
+    var isInternational: Bool;
+    @Published var image: String;
+    init(tripCollection: [Trip], id: String, isInternational: Bool, image: String) {
         self.tripCollection = tripCollection;
         self.id = id;
+        self.isInternational = isInternational
+        self.image = image
+    }
+    init(id:String, isInternational: Bool, image: String) {
+        self.id = id;
+        self.tripCollection = [];
+        self.isInternational = isInternational;
+        self.image = image;
     }
     init(id:String) {
         self.id = id;
@@ -129,11 +240,20 @@ struct Country: Identifiable, Hashable{
     func getTrip() -> [Trip] {
         return self.tripCollection;
     }
-    /*
-    func addTrip(trip:Trip) {
-        tripCollection.append(contentsOf: trip);
+
+    func getImage() -> String {
+        return self.image; 
     }
-     */
+    func addTrip(trip:Trip) {
+        tripCollection.append(trip);
+    }
+    func getName() -> String{
+        return self.id
+    }
+    func getInternational() -> Bool {
+        return isInternational;
+    }
+
 
     static func == (lhs: Country, rhs: Country) -> Bool {
         return lhs.id == rhs.id;
@@ -141,7 +261,7 @@ struct Country: Identifiable, Hashable{
 
 
 }
-struct ActiveCountries: Identifiable{
+class ActiveCountries: Identifiable{
     var id: String;
     var countriesCollection: [Country];
   
@@ -149,10 +269,18 @@ struct ActiveCountries: Identifiable{
         self.countriesCollection = countriesCollection;
         self.id = id;
     }
+
+    public func addCountry(country: Country) {
+        self.countriesCollection.append(country);
+    }
+    public func getCountry() -> [Country] {
+        return self.countriesCollection;
+    }
+
     
 
 }
-struct User: Identifiable{
+class User: Identifiable{
     var id: String;
     var name: String;
 

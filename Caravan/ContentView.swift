@@ -6,26 +6,56 @@
 //
 
 import SwiftUI
+import Firebase
+
+
 
 struct ContentView: View {
-    public var db: Database;
-    
-    init() {
-        self.db = Database();
-        var aref = self.db.getRef()
-        self.db.editData(operation: "update", ref: aref, data: ["estimatedcost": 50.0])
-        
-        self.db.downloadDocument();
-    }
+
+    @State var text = ""
+
     var body: some View {
-        Text("Hello, Bruce!")
-            .padding()
+            
+        TabView {
+            HomeView(text: text).tabItem{Label("Explore",systemImage:"globe.americas.fill")}
+            ProfileView().tabItem{Label("Profile", systemImage: "person")}
+        MessageView().tabItem{Label("Messages", systemImage: "message.fill")}
+        }.accentColor(.black)
+        
+    
+    
+
     }
     
+
 }
+
+    /*
+    var body: some View {
+        
+        HStack {
+            ForEach(0 ..< self.countries.count, id: \.self) {i in
+                
+                Text(countries[i] as! String)
+            }
+        }.onReceive(db.$data,perform: {data in
+            if(data.getCountry().count > 0) {
+                print(data.getCountry())
+                for var i in 0..<data.getCountry().count {
+                    countries.append((data.getCountry())[i].getName());
+                }
+            }
+        })
+        */
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        Group {
+            ContentView()
+                .previewDevice("iPhone 13")
+        }
     }
 }
+
+
