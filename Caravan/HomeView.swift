@@ -51,13 +51,13 @@ struct HomeView: View {
                         }
                     }.onReceive(db.$data,perform: {data in
                         if(db.data.getCountry().count > 0) {
-                            print(data.getCountry())
+                           
                             for var i in 0..<data.getCountry().count {
                                 UcountriesName.append((data.getCountry())[i].getName());
                                 UcountriesImage.append((data.getCountry())[i].getImage());
                                 UcountriesInternationalStatus.append((data.getCountry())[i].getInternational())
                             }
-                            print(UcountriesInternationalStatus)
+                 
                         }
                     });
                 };
@@ -82,13 +82,11 @@ struct HomeView: View {
                         }
                     }.onReceive(db.$data,perform: {data in
                         if(db.data.getCountry().count > 0) {
-                            print(data.getCountry())
                             for var i in 0..<data.getCountry().count {
                                 countriesName.append((data.getCountry())[i].getName());
                                 countriesImage.append((data.getCountry())[i].getImage());
                                 countriesInternationalStatus.append((data.getCountry())[i].getInternational())
                             }
-                            print(countriesInternationalStatus)
                         }
                     });
                 }

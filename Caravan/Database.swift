@@ -49,10 +49,11 @@ class Database: ObservableObject{
                             } else {
                                 for doc in tripDoc!.documents{
                                     //Trip1 => ["Date": 10/10/2021]
-                                    let date = doc.data()["Date"] as? String;
+                                   
+                                    let date = doc.data()["date"] as? String;
                                     let amountOfPeople = doc.data()["amountOfPeople"] as? Int
                                     let name = doc.data()["name"] as? String;
-                                    let organizer = doc.data()["name"] as? String;
+                                    let organizer = doc.data()["organizer"] as? String;
                                     let descripition = doc.data()["descripition"] as? String;
                                     let people = doc.data()["people"] as? [String];
                                     let estimatedCost = doc.data()["estimatedCost"] as? Float;
@@ -68,7 +69,7 @@ class Database: ObservableObject{
                                                    people: people ?? [""],
                                                    estimatedCost: estimatedCost ?? 0.0,
                                                     image: image ?? "",
-                                                    country: countryName ?? "")
+                                                   country: countryName ?? "")
                                         )
                              
                                 }
@@ -169,13 +170,14 @@ class Country: Identifiable{
     }
 
     func getTrip() -> [Trip] {
+        print(self.tripCollection)
         return self.tripCollection;
     }
     func getImage() -> String {
         return self.image; 
     }
     func addTrip(trip:Trip) {
-        tripCollection.append(trip);
+        self.tripCollection.append(trip);
     }
     func getName() -> String{
         return self.id
