@@ -12,11 +12,8 @@ import Firebase
 
 struct ContentView: View {
 
-  
     @State var text = ""
-    //@ObservedObject var db: Database = Database();
-    
-    //@State var countries = [];
+
     var body: some View {
             
         TabView {
@@ -31,8 +28,6 @@ struct ContentView: View {
     }
     
 
-
-    
 }
 
     /*

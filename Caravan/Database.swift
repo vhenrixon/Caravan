@@ -16,18 +16,81 @@ class Database: ObservableObject{
     @Published var dataRecieved = false;
     var docRef: DocumentReference!
 
-    
     init() {
-        if(FirebaseApp.app() == nil){
-            FirebaseApp.configure()
-        }
-        self.db = Firestore.firestore()
-        self.data = ActiveCountries(countriesCollection: [], id: "");
-        self.getData() { (data) in
-            self.data = data;
-            self.dataRecieved = true;
+
+     
+      if(FirebaseApp.app() == nil){
+              FirebaseApp.configure()
+          }
+          self.db = Firestore.firestore()
+          self.data = ActiveCountries(countriesCollection: [], id: "");
+          self.getData() { (data) in
+              self.data = data;
+              self.dataRecieved = true;
+          }
+    }
+    
+    func getRef() -> DocumentReference {
+        return Firestore.firestore().collection("Users").document("Martha")
+    }
+    //dataType: for the newly added data, decide whether it is a new country, tripID, or attributes
+    
+    func editData(operation: String, ref: DocumentReference, data: [String: Any]) {
+        
+        switch operation {
+        case "update":
+            ref.updateData(data) { error in
+                if error != nil {
+                    print("An Error Occured!")
+                } else {
+                    print("Data Save Successfully")
+                }
+            }
+        case "addElement":
+            for instance in data {
+                ref.updateData([instance.key: FieldValue.arrayUnion([instance.value])]) { error in
+                    if error != nil {
+                        print("An Error Occured!")
+                    } else {
+                        print("Data Save Successfully")
+                    }
+                }
+            }
+        case "removeElement":
+                for instance in data {
+                    ref.updateData([instance.key: FieldValue.arrayRemove([instance.value])]) { error in
+                        if error != nil {
+                            print("An Error Occured!")
+                        } else {
+                            print("Data Save Successfully")
+                        }
+                    }
+                }
+        default:
+            //can set subcollections even if document does not exist
+            ref.setData(data, merge: true) { error in
+                if error != nil {
+                    print("An Error Occured!")
+                } else {
+                    print("Data Save Successfully")
+                }
+            }
         }
     }
+    
+    func changeArray(deleteElement: Bool, country: String, tripID: String, data: Any) {
+        //can set subcollections even if document does not exist
+        var ref: DocumentReference!
+        self.db.collection("Countries").document(country).collection("Trips").document(tripID).setData(data as! [String : Any]) { error in
+            if error != nil {
+                print("An Error Occured!")
+            } else {
+                print("Data Save Successfully")
+            }
+        }
+    }
+
+    
 
     func getData(completion: @escaping(ActiveCountries) -> ()) {
         self.db.collection("Countries").getDocuments {
@@ -83,8 +146,10 @@ class Database: ObservableObject{
 
     }
 
+
 }
 class Trip: Identifiable{
+
     var date: String;
     var amountOfPeople: Int;
     var id: String;
@@ -111,6 +176,7 @@ class Trip: Identifiable{
     func getDate() -> String{
         return self.date;
     }
+
     func getAmountOfPeople() -> Int{
         return self.amountOfPeople;
     }
@@ -139,12 +205,11 @@ class Trip: Identifiable{
         return self.country;
     }
     
+
     static func == (lhs: Trip, rhs: Trip) -> Bool {
         return lhs.id == rhs.id;
     }
 }
-
-
 
 
 
@@ -167,10 +232,15 @@ class Country: Identifiable{
         self.isInternational = isInternational;
         self.image = image;
     }
+    init(id:String) {
+        self.id = id;
+        self.tripCollection = [];
+    }
 
     func getTrip() -> [Trip] {
         return self.tripCollection;
     }
+
     func getImage() -> String {
         return self.image; 
     }
@@ -183,6 +253,7 @@ class Country: Identifiable{
     func getInternational() -> Bool {
         return isInternational;
     }
+
 
     static func == (lhs: Country, rhs: Country) -> Bool {
         return lhs.id == rhs.id;
@@ -198,12 +269,14 @@ class ActiveCountries: Identifiable{
         self.countriesCollection = countriesCollection;
         self.id = id;
     }
+
     public func addCountry(country: Country) {
         self.countriesCollection.append(country);
     }
     public func getCountry() -> [Country] {
         return self.countriesCollection;
     }
+
     
 
 }
@@ -219,5 +292,3 @@ class User: Identifiable{
         return self.name;
     }
  }
-
-
