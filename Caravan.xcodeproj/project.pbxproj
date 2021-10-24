@@ -13,22 +13,19 @@
 		0469083F2723C11C00735B62 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0469083E2723C11C00735B62 /* Preview Assets.xcassets */; };
 		0469084A2723C11D00735B62 /* CaravanTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046908492723C11D00735B62 /* CaravanTests.swift */; };
 		046908552723C11D00735B62 /* CaravanUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046908542723C11D00735B62 /* CaravanUITests.swift */; };
-
+		57B6406C27243DD200854DD0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 57B6406B27243DD200854DD0 /* GoogleService-Info.plist */; };
+		57B6406E272441FC00854DD0 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B6406D272441FC00854DD0 /* Database.swift */; };
+		57CEAFC82724DBDA00A0AFFB /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CEAFC72724DBDA00A0AFFB /* ProfileView.swift */; };
+		7BEA2F3EBD791E9872BA2ACA /* Pods_Caravan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E522D95C25E57B0C117BF6 /* Pods_Caravan.framework */; };
+		A2AB08655D5FC15881A49E0D /* Pods_CaravanTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20A028FB7F65C543CDD14652 /* Pods_CaravanTests.framework */; };
 		BC0E374C2724590D00D26C4A /* Travel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0E374B2724590D00D26C4A /* Travel.swift */; };
 		BC0E374E27245BE300D26C4A /* TravelRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0E374D27245BE300D26C4A /* TravelRowView.swift */; };
 		BC0E37502724637800D26C4A /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0E374F2724637800D26C4A /* SearchBar.swift */; };
-		BC0E37522724854500D26C4A /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0E37512724854500D26C4A /* ProfileView.swift */; };
 		BC0E375627248E6F00D26C4A /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0E375527248E6F00D26C4A /* HomeView.swift */; };
 		BC0E37582724937B00D26C4A /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0E37572724937B00D26C4A /* CardView.swift */; };
 		BC0E375A2724940900D26C4A /* CountryPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0E37592724940900D26C4A /* CountryPageView.swift */; };
 		BC0E375C272498B300D26C4A /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0E375B272498B300D26C4A /* MessageView.swift */; };
-
-		57B6406C27243DD200854DD0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 57B6406B27243DD200854DD0 /* GoogleService-Info.plist */; };
-		57B6406E272441FC00854DD0 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B6406D272441FC00854DD0 /* Database.swift */; };
-		7BEA2F3EBD791E9872BA2ACA /* Pods_Caravan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E522D95C25E57B0C117BF6 /* Pods_Caravan.framework */; };
-		A2AB08655D5FC15881A49E0D /* Pods_CaravanTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20A028FB7F65C543CDD14652 /* Pods_CaravanTests.framework */; };
 		DE1EDB768BA8D01ADB7D5EDB /* Pods_Caravan_CaravanUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE90BD37AFB99C619E5D9716 /* Pods_Caravan_CaravanUITests.framework */; };
-
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,28 +58,25 @@
 		046908502723C11D00735B62 /* CaravanUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CaravanUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		046908542723C11D00735B62 /* CaravanUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaravanUITests.swift; sourceTree = "<group>"; };
 		046908562723C11D00735B62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-
-		BC0E374B2724590D00D26C4A /* Travel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Travel.swift; sourceTree = "<group>"; };
-		BC0E374D27245BE300D26C4A /* TravelRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelRowView.swift; sourceTree = "<group>"; };
-		BC0E374F2724637800D26C4A /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
-		BC0E37512724854500D26C4A /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
-		BC0E375527248E6F00D26C4A /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		BC0E37572724937B00D26C4A /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
-		BC0E37592724940900D26C4A /* CountryPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryPageView.swift; sourceTree = "<group>"; };
-		BC0E375B272498B300D26C4A /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
-
 		20A028FB7F65C543CDD14652 /* Pods_CaravanTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CaravanTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		27E522D95C25E57B0C117BF6 /* Pods_Caravan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Caravan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		29B5290D25AA200C2D85FBF2 /* Pods-CaravanTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CaravanTests.debug.xcconfig"; path = "Target Support Files/Pods-CaravanTests/Pods-CaravanTests.debug.xcconfig"; sourceTree = "<group>"; };
 		426820E5BBEE2BC1FC843584 /* Pods-Caravan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Caravan.release.xcconfig"; path = "Target Support Files/Pods-Caravan/Pods-Caravan.release.xcconfig"; sourceTree = "<group>"; };
 		57B6406B27243DD200854DD0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Desktop/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		57B6406D272441FC00854DD0 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		57CEAFC72724DBDA00A0AFFB /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileView.swift; path = ../../../Downloads/ProfileView.swift; sourceTree = "<group>"; };
 		70AC80CCB283A65C53FF5B42 /* Pods-Caravan-CaravanUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Caravan-CaravanUITests.debug.xcconfig"; path = "Target Support Files/Pods-Caravan-CaravanUITests/Pods-Caravan-CaravanUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		A5B2DA2F7DA5C891EA353E9F /* Pods-Caravan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Caravan.debug.xcconfig"; path = "Target Support Files/Pods-Caravan/Pods-Caravan.debug.xcconfig"; sourceTree = "<group>"; };
 		B44FB82D611F6D0BD6AF44B1 /* Pods-Caravan-CaravanUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Caravan-CaravanUITests.release.xcconfig"; path = "Target Support Files/Pods-Caravan-CaravanUITests/Pods-Caravan-CaravanUITests.release.xcconfig"; sourceTree = "<group>"; };
+		BC0E374B2724590D00D26C4A /* Travel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Travel.swift; sourceTree = "<group>"; };
+		BC0E374D27245BE300D26C4A /* TravelRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelRowView.swift; sourceTree = "<group>"; };
+		BC0E374F2724637800D26C4A /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		BC0E375527248E6F00D26C4A /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		BC0E37572724937B00D26C4A /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		BC0E37592724940900D26C4A /* CountryPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryPageView.swift; sourceTree = "<group>"; };
+		BC0E375B272498B300D26C4A /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		BE64BE3E4AD9342CF32036BE /* Pods-CaravanTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CaravanTests.release.xcconfig"; path = "Target Support Files/Pods-CaravanTests/Pods-CaravanTests.release.xcconfig"; sourceTree = "<group>"; };
 		FE90BD37AFB99C619E5D9716 /* Pods_Caravan_CaravanUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Caravan_CaravanUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,16 +133,13 @@
 			isa = PBXGroup;
 			children = (
 				57B6406B27243DD200854DD0 /* GoogleService-Info.plist */,
+				57CEAFC72724DBDA00A0AFFB /* ProfileView.swift */,
 				046908372723C11700735B62 /* CaravanApp.swift */,
-				BC0E37512724854500D26C4A /* ProfileView.swift */,
 				046908392723C11700735B62 /* ContentView.swift */,
-
 				BC0E375B272498B300D26C4A /* MessageView.swift */,
 				BC0E374F2724637800D26C4A /* SearchBar.swift */,
 				BC0E374D27245BE300D26C4A /* TravelRowView.swift */,
-
 				57B6406D272441FC00854DD0 /* Database.swift */,
-
 				0469083B2723C11C00735B62 /* Assets.xcassets */,
 				046908402723C11C00735B62 /* Info.plist */,
 				0469083D2723C11C00735B62 /* Preview Content */,
@@ -447,19 +438,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-
 				BC0E375A2724940900D26C4A /* CountryPageView.swift in Sources */,
 				BC0E374C2724590D00D26C4A /* Travel.swift in Sources */,
 				BC0E375627248E6F00D26C4A /* HomeView.swift in Sources */,
-
 				57B6406E272441FC00854DD0 /* Database.swift in Sources */,
-
 				0469083A2723C11700735B62 /* ContentView.swift in Sources */,
 				BC0E375C272498B300D26C4A /* MessageView.swift in Sources */,
 				BC0E37502724637800D26C4A /* SearchBar.swift in Sources */,
 				046908382723C11700735B62 /* CaravanApp.swift in Sources */,
-				BC0E37522724854500D26C4A /* ProfileView.swift in Sources */,
 				BC0E37582724937B00D26C4A /* CardView.swift in Sources */,
+				57CEAFC82724DBDA00A0AFFB /* ProfileView.swift in Sources */,
 				BC0E374E27245BE300D26C4A /* TravelRowView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

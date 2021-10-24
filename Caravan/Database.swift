@@ -18,7 +18,9 @@ class Database: ObservableObject{
 
     
     init() {
-        FirebaseApp.configure()
+        if(FirebaseApp.app() == nil){
+            FirebaseApp.configure()
+        }
         self.db = Firestore.firestore()
         self.data = ActiveCountries(countriesCollection: [], id: "");
         self.getData() { (data) in
@@ -54,6 +56,8 @@ class Database: ObservableObject{
                                     let descripition = doc.data()["descripition"] as? String;
                                     let people = doc.data()["people"] as? [String];
                                     let estimatedCost = doc.data()["estimatedCost"] as? Float;
+                                    let image = doc.data()["image"] as? String;
+                                    let countryName = doc.data()["country"] as? String;
                                     self.data.getCountry()[_i].addTrip(
                                         trip: Trip(date: date ?? "00/00/00",
                                                    amountOfPeople: amountOfPeople ?? 0,
@@ -62,7 +66,10 @@ class Database: ObservableObject{
                                                    organizer: organizer ?? "",
                                                    descripition: descripition ?? "" ,
                                                    people: people ?? [""],
-                                                   estimatedCost: estimatedCost ?? 0.0));
+                                                   estimatedCost: estimatedCost ?? 0.0,
+                                                    image: image ?? "",
+                                                    country: countryName ?? "")
+                                        )
                              
                                 }
                             }
@@ -86,8 +93,9 @@ class Trip: Identifiable{
     var descripition: String;
     var people: [String];
     var estimatedCost: Float;
-
-    init(date:String, amountOfPeople:Int, id:String, name:String, organizer: String, descripition: String, people:[String], estimatedCost: Float) {
+    var image: String;
+    var country: String
+    init(date:String, amountOfPeople:Int, id:String, name:String, organizer: String, descripition: String, people:[String], estimatedCost: Float, image: String, country: String) {
         self.date = date;
         self.amountOfPeople = amountOfPeople;
         self.id = id;
@@ -96,11 +104,41 @@ class Trip: Identifiable{
         self.descripition = descripition;
         self.people = people;
         self.estimatedCost = estimatedCost;
+        self.image = image;
+        self.country = country;
     }
 
     func getDate() -> String{
         return self.date;
     }
+    func getAmountOfPeople() -> Int{
+        return self.amountOfPeople;
+    }
+    func getId() -> String{
+        return self.id;
+    }
+    func getOrganizer() -> String{
+        return self.organizer;
+    }
+    func getDescripition() -> String{
+        return self.descripition;
+    }
+    func getPeople() -> [String]{
+        return self.people;
+    }
+    func getEstimatedCost() -> Float{
+        return self.estimatedCost;
+    }
+    func getName() -> String {
+        return self.name;
+    }
+    func getImage() -> String {
+        return self.image;
+    }
+    func getCountryName() -> String {
+        return self.country;
+    }
+    
     static func == (lhs: Trip, rhs: Trip) -> Bool {
         return lhs.id == rhs.id;
     }
