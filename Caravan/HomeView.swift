@@ -40,7 +40,7 @@ struct HomeView: View {
                     ForEach(0 ..< self.UcountriesName.count, id: \.self) {i in
                         var interStatus = UcountriesInternationalStatus[i] as! Bool;
                         if (interStatus == true) {
-                            NavigationLink(destination: CountryPageView(name: (countriesName[i] as! String))){
+                            NavigationLink(destination: CountryPageView()){
                             Image(UcountriesImage[i] as! String)
                                     .resizable()
                                     .cornerRadius(10)
@@ -71,7 +71,7 @@ struct HomeView: View {
                     ForEach(0 ..< self.countriesName.count, id: \.self) {i in
                         var interStatus = countriesInternationalStatus[i] as! Bool;
                         if (interStatus == false) {
-                            NavigationLink(destination: CountryPageView(name: countriesName[i] as! String)){
+                            NavigationLink(destination: CountryPageView()){
                                 Image(countriesImage[i] as! String)
                                         .resizable()
                                         .cornerRadius(10)
@@ -92,6 +92,6 @@ struct HomeView: View {
                 }
             }
         }
-    }
+        }.accentColor(.yellow)
 }
 }

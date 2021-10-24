@@ -13,6 +13,8 @@
 		0469083F2723C11C00735B62 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0469083E2723C11C00735B62 /* Preview Assets.xcassets */; };
 		0469084A2723C11D00735B62 /* CaravanTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046908492723C11D00735B62 /* CaravanTests.swift */; };
 		046908552723C11D00735B62 /* CaravanUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046908542723C11D00735B62 /* CaravanUITests.swift */; };
+		57688CE72724ED570002BC73 /* CountryPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57688CE62724ED570002BC73 /* CountryPageView.swift */; };
+		57688CE92724ED810002BC73 /* DetailedTripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57688CE82724ED810002BC73 /* DetailedTripView.swift */; };
 		57B6406C27243DD200854DD0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 57B6406B27243DD200854DD0 /* GoogleService-Info.plist */; };
 		57B6406E272441FC00854DD0 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B6406D272441FC00854DD0 /* Database.swift */; };
 		57CEAFC82724DBDA00A0AFFB /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CEAFC72724DBDA00A0AFFB /* ProfileView.swift */; };
@@ -23,7 +25,6 @@
 		BC0E37502724637800D26C4A /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0E374F2724637800D26C4A /* SearchBar.swift */; };
 		BC0E375627248E6F00D26C4A /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0E375527248E6F00D26C4A /* HomeView.swift */; };
 		BC0E37582724937B00D26C4A /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0E37572724937B00D26C4A /* CardView.swift */; };
-		BC0E375A2724940900D26C4A /* CountryPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0E37592724940900D26C4A /* CountryPageView.swift */; };
 		BC0E375C272498B300D26C4A /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0E375B272498B300D26C4A /* MessageView.swift */; };
 		DE1EDB768BA8D01ADB7D5EDB /* Pods_Caravan_CaravanUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE90BD37AFB99C619E5D9716 /* Pods_Caravan_CaravanUITests.framework */; };
 /* End PBXBuildFile section */
@@ -62,6 +63,8 @@
 		27E522D95C25E57B0C117BF6 /* Pods_Caravan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Caravan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		29B5290D25AA200C2D85FBF2 /* Pods-CaravanTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CaravanTests.debug.xcconfig"; path = "Target Support Files/Pods-CaravanTests/Pods-CaravanTests.debug.xcconfig"; sourceTree = "<group>"; };
 		426820E5BBEE2BC1FC843584 /* Pods-Caravan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Caravan.release.xcconfig"; path = "Target Support Files/Pods-Caravan/Pods-Caravan.release.xcconfig"; sourceTree = "<group>"; };
+		57688CE62724ED570002BC73 /* CountryPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CountryPageView.swift; path = ../../../Downloads/CountryPageView.swift; sourceTree = "<group>"; };
+		57688CE82724ED810002BC73 /* DetailedTripView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DetailedTripView.swift; path = ../../../Downloads/DetailedTripView.swift; sourceTree = "<group>"; };
 		57B6406B27243DD200854DD0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Desktop/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		57B6406D272441FC00854DD0 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		57CEAFC72724DBDA00A0AFFB /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileView.swift; path = ../../../Downloads/ProfileView.swift; sourceTree = "<group>"; };
@@ -73,7 +76,6 @@
 		BC0E374F2724637800D26C4A /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		BC0E375527248E6F00D26C4A /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		BC0E37572724937B00D26C4A /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
-		BC0E37592724940900D26C4A /* CountryPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryPageView.swift; sourceTree = "<group>"; };
 		BC0E375B272498B300D26C4A /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		BE64BE3E4AD9342CF32036BE /* Pods-CaravanTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CaravanTests.release.xcconfig"; path = "Target Support Files/Pods-CaravanTests/Pods-CaravanTests.release.xcconfig"; sourceTree = "<group>"; };
 		FE90BD37AFB99C619E5D9716 /* Pods_Caravan_CaravanUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Caravan_CaravanUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -137,6 +139,7 @@
 				046908372723C11700735B62 /* CaravanApp.swift */,
 				046908392723C11700735B62 /* ContentView.swift */,
 				BC0E375B272498B300D26C4A /* MessageView.swift */,
+				57688CE82724ED810002BC73 /* DetailedTripView.swift */,
 				BC0E374F2724637800D26C4A /* SearchBar.swift */,
 				BC0E374D27245BE300D26C4A /* TravelRowView.swift */,
 				57B6406D272441FC00854DD0 /* Database.swift */,
@@ -144,9 +147,9 @@
 				046908402723C11C00735B62 /* Info.plist */,
 				0469083D2723C11C00735B62 /* Preview Content */,
 				BC0E374B2724590D00D26C4A /* Travel.swift */,
+				57688CE62724ED570002BC73 /* CountryPageView.swift */,
 				BC0E375527248E6F00D26C4A /* HomeView.swift */,
 				BC0E37572724937B00D26C4A /* CardView.swift */,
-				BC0E37592724940900D26C4A /* CountryPageView.swift */,
 			);
 			path = Caravan;
 			sourceTree = "<group>";
@@ -438,13 +441,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BC0E375A2724940900D26C4A /* CountryPageView.swift in Sources */,
+				57688CE72724ED570002BC73 /* CountryPageView.swift in Sources */,
 				BC0E374C2724590D00D26C4A /* Travel.swift in Sources */,
 				BC0E375627248E6F00D26C4A /* HomeView.swift in Sources */,
 				57B6406E272441FC00854DD0 /* Database.swift in Sources */,
 				0469083A2723C11700735B62 /* ContentView.swift in Sources */,
 				BC0E375C272498B300D26C4A /* MessageView.swift in Sources */,
 				BC0E37502724637800D26C4A /* SearchBar.swift in Sources */,
+				57688CE92724ED810002BC73 /* DetailedTripView.swift in Sources */,
 				046908382723C11700735B62 /* CaravanApp.swift in Sources */,
 				BC0E37582724937B00D26C4A /* CardView.swift in Sources */,
 				57CEAFC82724DBDA00A0AFFB /* ProfileView.swift in Sources */,
